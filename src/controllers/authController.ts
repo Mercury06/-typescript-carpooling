@@ -86,7 +86,7 @@ class AuthController {
   }
 
   async auth(req: Request, res: Response) {
-    console.log("reCIEVED aUTH reQUEST")
+    
     try {
       const user = await UserModel.findOne({ _id: (req as ICustomRequest).user.id });    
       if (user) {
