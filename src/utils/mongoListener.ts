@@ -29,11 +29,11 @@ class DBListener {
             let initiator: string = JSON.stringify(next.fullDocument._id).slice(1, -1);
             let addNotifyToUserResult = await DbService.addNotifyToUser(usersToNotify, initiator, eventType);
             console.log("addNotifyToUserResult@@@@@@@@@@@@@@@:", addNotifyToUserResult);
-            // add if addNotifyToUserResult
-            // const _notif = notifier.createNotification(usersToNotify, initiator, eventType, notifiedId);
-            // // console.log("_notif:", _notif);
-            // sse._emitEvent(_notif);     
-
+            if ('acknowledged' in addNotifyToUserResult && addNotifyToUserResult.acknowledged === true) {
+              const _notif = notifier.createNotification(usersToNotify, initiator, eventType);
+              console.log("_notif:", _notif);
+              sse._emitEvent(_notif);     
+            }              
           }          
         }
       } else return;

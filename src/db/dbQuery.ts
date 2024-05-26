@@ -1,4 +1,4 @@
-
+import { Error } from 'mongoose';
 import { AskModel, IAsk } from "../models/Ask";
 import { DialogModel } from "../models/Dialog";
 import { IRide, RideModel } from "../models/Ride";
@@ -16,6 +16,14 @@ export interface ICancelConfirm {
   askItem: IAsk,
   confirmedOffer: IRide
 }
+
+type UserNotifyResult = {
+  acknowledged: boolean;
+  matchedCount: number;
+  modifiedCount: number;
+  upsertedId: any;
+  upsertedCount: number;
+};
 
 export default class DbService {
  
@@ -88,7 +96,8 @@ export default class DbService {
     });
   };
 
-  static addNotifyToUser = (usersToNotify: Array<string>, initiator: string, eventType: string) => {
+
+  static addNotifyToUser = (usersToNotify: Array<string>, initiator: string, eventType: string): Promise<UserNotifyResult> => {
   
     return new Promise(async function (resolve, reject) {
       try {
@@ -105,7 +114,7 @@ export default class DbService {
         );
         resolve(signed);
       } catch (err){
-        reject(err);
+        reject(err instanceof Error ? err : new Error('Unknown error'));
       }      
     });
 };

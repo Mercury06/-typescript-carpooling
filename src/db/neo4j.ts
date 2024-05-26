@@ -45,7 +45,7 @@ const getGraphQuery = (argFrom: string, argTo: string): Promise<{ cities: Array<
       }).catch ((error) => {
         console.error('Error retrieving data:', error);
         driver.close();
-      }).finally(() => session.close())   
+      });
   });
 
   export { getGraphQuery as getGraphData };

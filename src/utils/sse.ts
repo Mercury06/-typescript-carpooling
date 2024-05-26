@@ -21,7 +21,7 @@ class SSE extends EventEmitter implements ISse {
   }   
   _eventListener(data: any) {
     console.log("eventListener recieved event...:", data);
-    const recievers = data.recieverIdArray;
+    const recievers = data.usersToNotify;
     for (let reciever of recievers) {
       if (this.connections.has(reciever)) {
         reciever = this.connections.get(reciever);
@@ -30,11 +30,10 @@ class SSE extends EventEmitter implements ISse {
             message: "some data for prepared clIEnt",
           })} \n\n`
         );
-        // reciever.write(`event: ${JSON.stringify(data.event)} \n\n`);
+        reciever.write(`event: ${JSON.stringify(data.eventType)} \n\n`);
 
-        reciever.write(`event: ${data.event}\n`);
-        // reciever.write(`event: opportune\n`);
-        reciever.write(`data: ${JSON.stringify(data.data)} \n`);
+        // reciever.write(`event: ${data.eventType} \n\n`);        // reciever.write(`event: opportune\n`);
+        
         reciever.write(`\n\n`);
       }
     }

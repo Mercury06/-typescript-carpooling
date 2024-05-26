@@ -3,8 +3,7 @@
 interface INotification {
   initiator: string,
   usersToNotify: Array<string>,
-  eventType: string,
-  notifiedId: string
+  eventType: string  
 }
 
 class Notifier {
@@ -25,18 +24,16 @@ class Notifier {
   //     },
   //   };
   // }
-  createNotification(usersToNotify: Array<string>, initiator: string, eventType: string, notifiedId: string): INotification {    
-    console.log("usersToNotify in createNotification:", usersToNotify);  
-    console.log("initiator in createNotification:", initiator); 
-    console.log("eventType in createNotification:", eventType);   
-    console.log("notifiedId in createNotification:s", notifiedId);  
+  createNotification(usersToNotify: Array<string>, initiator: string, eventType: string): INotification {    
+    // console.log("usersToNotify in createNotification:", usersToNotify);  
+    // console.log("initiator in createNotification:", initiator); 
+    // console.log("eventType in createNotification:", eventType);      
     // let recieverIdArray: Array<string> = matched.map((el) => JSON.stringify(el.user).slice(1, -1));        
     
     return {      
       usersToNotify,
       initiator,
-      eventType,
-      notifiedId
+      eventType     
     };
   }
 }

@@ -104,6 +104,7 @@ class AuthController {
       }       
     } catch (e: unknown) {
       const message = errorSerializer(e)
+      console.log("message in catch", message)
       res.status(403).json({ message });
     }
   }
